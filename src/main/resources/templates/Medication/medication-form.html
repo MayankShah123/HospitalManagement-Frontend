@@ -1,88 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Medication Form</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            padding-top: 60px;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            width: 420px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            color: #0a6e6e;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #0a6e6e;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            color: #666;
-            text-decoration: none;
-        }
+        .font-serif-dm { font-family: 'DM Serif Display', serif; }
+        body { font-family: 'DM Sans', sans-serif; background: #f0f4f8; color: #1a202c; }
     </style>
 </head>
 
-<body>
+<body class="min-h-screen py-10 flex flex-col items-center justify-center px-4">
 
-<div class="card">
+    <!-- 🔷 Breadcrumb -->
+    <div class="w-full max-w-[600px] mb-4 flex items-center text-[0.95rem] font-medium text-[#718096]">
+        <a href="/" class="hover:text-[#0a6e6e]">🏠 Home</a>
+        <span class="mx-2 text-[#cbd5e0]">/</span>
 
-    <h2 th:text="${medication.code} != null ? 'Edit Medication' : 'Add Medication'"></h2>
+        <a th:href="@{/medications}" class="hover:text-[#0a6e6e]">
+            Medications
+        </a>
 
-    <form th:action="@{/medications/save}" th:object="${medication}" method="post">
+        <span class="mx-2 text-[#cbd5e0]">/</span>
 
-        <!-- Show only in ADD -->
-        <div class="mb-3" th:if="${!isEdit}">
-            <label>Code</label>
-            <input type="number" th:field="*{code}" class="form-control" required />
+        <span class="text-[#1a202c]">
+            <span th:text="${isEdit} ? 'Edit Medication' : 'Add Medication'"></span>
+        </span>
+    </div>
+
+    <!-- 🔷 Card -->
+    <div class="w-full max-w-[600px] bg-white rounded-2xl p-10 shadow">
+
+        <!-- 🔷 Title -->
+        <div class="mb-8 text-center">
+            <h1 class="text-[2.2rem] text-[#0a6e6e] font-serif-dm">
+                <span th:text="${isEdit} ? 'Edit Medication' : 'Add Medication'"></span>
+            </h1>
+
+            <p class="text-[#718096] text-[0.95rem] mt-1">
+                Manage medication details
+            </p>
         </div>
 
-        <!-- Hidden field for EDIT (to preserve ID) -->
-        <input type="hidden" th:if="${isEdit}" th:field="*{code}" />
+        <!-- 🔷 Form -->
+        <form th:action="@{/medications/save}"
+              th:object="${medication}"
+              method="post"
+              class="space-y-5">
 
-        <input type="text" th:field="*{name}" placeholder="Medication Name" required>
-        <input type="text" th:field="*{brand}" placeholder="Brand" required>
-        <input type="text" th:field="*{description}" placeholder="Description" required>
+            <!-- Code (ONLY ADD) -->
+            <div th:if="${!isEdit}" class="flex flex-col gap-1.5">
+                <label class="text-[0.95rem]">Code</label>
+                <input type="number"
+                       th:field="*{code}"
+                       required
+                       class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-[10px] focus:border-[#0a6e6e] outline-none"/>
+            </div>
 
-        <button type="submit">Save</button>
+            <!-- Hidden Code (EDIT) -->
+            <input type="hidden" th:if="${isEdit}" th:field="*{code}" />
 
-    </form>
+            <!-- Name -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-[0.95rem]">Medication Name</label>
+                <input type="text"
+                       th:field="*{name}"
+                       required
+                       class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-[10px] focus:border-[#0a6e6e] outline-none"/>
+            </div>
 
-    <a href="/medications" class="back">← Back</a>
+            <!-- Brand -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-[0.95rem]">Brand</label>
+                <input type="text"
+                       th:field="*{brand}"
+                       required
+                       class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-[10px] focus:border-[#0a6e6e] outline-none"/>
+            </div>
 
-</div>
+            <!-- Description -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-[0.95rem]">Description</label>
+                <input type="text"
+                       th:field="*{description}"
+                       required
+                       class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-[10px] focus:border-[#0a6e6e] outline-none"/>
+            </div>
+
+            <!-- 🔷 Submit -->
+            <div class="pt-3">
+                <button type="submit"
+                        class="w-full bg-[#0a6e6e] hover:bg-[#085a5a] text-white py-3 rounded-[10px] shadow transition">
+                    Save
+                </button>
+            </div>
+
+        </form>
+
+        <!-- 🔷 Back -->
+        <div class="text-center mt-6">
+            <a th:href="@{/medications}"
+               class="inline-block px-5 py-2 border-2 border-[#e2e8f0] rounded-[10px] text-[#718096] hover:border-[#0a6e6e] hover:text-[#0a6e6e]">
+                ← Back to Medications
+            </a>
+        </div>
+
+    </div>
 
 </body>
 </html>

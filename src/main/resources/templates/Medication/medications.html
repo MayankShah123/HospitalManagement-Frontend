@@ -1,276 +1,168 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Medication Management</title>
+    <meta charset="UTF-8">
+    <title>Medications</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg: #f0f4f8;
-            --card: #ffffff;
-            --primary: #0a6e6e;
-            --accent: #12b886;
-            --text: #1a202c;
-            --muted: #718096;
-            --border: #e2e8f0;
-            --shadow: 0 4px 24px rgba(0,0,0,0.08);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 48px 16px;
-        }
-
-        .container { width: 100%; max-width: 1000px; }
-
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .header h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.2rem;
-            color: var(--primary);
-        }
-
-        .btn-add {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 10px 18px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-add:hover { background: #085a5a; }
-
-        /* Search */
-        .search-wrapper {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .search-wrapper input {
-            flex: 1;
-            padding: 12px 18px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            background: var(--card);
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        .search-wrapper button {
-            padding: 12px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .clear-btn {
-            padding: 12px 16px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--muted);
-        }
-
-        .clear-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* Card */
-        .card {
-            background: var(--card);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: var(--primary);
-            color: white;
-        }
-
-        thead th {
-            padding: 16px;
-            text-align: left;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid var(--border);
-        }
-
-        tbody tr:hover {
-            background: #f7fffe;
-        }
-
-        tbody td {
-            padding: 14px 16px;
-        }
-
-        /* Buttons */
-        .btn-edit {
-            background: #ffc107;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .btn-view {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-        }
-
-        .page-buttons a {
-            margin: 0 3px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-
-        .page-buttons a.active {
-            background: var(--primary);
-            color: white;
-        }
-
+        .font-serif-dm { font-family: 'DM Serif Display', serif; }
+        body { font-family: 'DM Sans', sans-serif; background: #f0f4f8; color: #1a202c; }
     </style>
 </head>
 
-<body>
+<body class="min-h-screen py-10 flex flex-col items-center px-4">
 
-<div class="container">
-
-    <!-- Header -->
-    <div class="header">
-        <h1>💊 Medication Management</h1>
-        <button class="btn-add" onclick="window.location.href='/medications/add'">+ Add Medication</button>
+    <!-- 🔷 Breadcrumb -->
+    <div class="w-full max-w-[960px] mb-6 flex items-center text-[0.95rem] font-medium text-[#718096]">
+        <a href="/" class="hover:text-[#0a6e6e] flex items-center gap-1.5">
+            🏠 Home
+        </a>
+        <span class="mx-2 text-[#cbd5e0]">/</span>
+        <span class="text-[#1a202c]">Medications</span>
     </div>
 
-    <!-- Search -->
-    <form th:action="@{/medications}" method="get" class="search-wrapper">
+    <!-- 🔷 Title -->
+    <div class="w-full max-w-[960px] mb-6 text-center">
+        <h1 class="text-[2.4rem] text-[#0a6e6e] font-serif-dm">
+            💊 Medication Management
+        </h1>
+        <p class="text-[#718096] text-[0.95rem] mt-1">
+            Manage medications and view prescriptions
+        </p>
+    </div>
 
-        <input type="text"
-               name="keyword"
-               th:value="${keyword}"
-               placeholder="🔍 Search medications..." />
+    <!-- 🔷 Top Bar -->
+    <div class="w-full max-w-[960px] flex flex-wrap items-center gap-3 mb-6">
 
-        <button type="submit">Search</button>
+        <!-- Search -->
+        <form th:action="@{/medications}" method="get"
+              class="flex items-center gap-2 flex-1">
 
-        <a th:href="@{/medications}" class="clear-btn">✕</a>
+            <input type="text"
+                   name="keyword"
+                   th:value="${keyword}"
+                   placeholder="Search medications..."
+                   class="flex-1 px-4 py-2 border-2 border-[#e2e8f0] rounded-[10px] focus:border-[#0a6e6e] outline-none text-[0.95rem]"/>
 
-    </form>
+            <button type="submit"
+                    class="bg-[#0a6e6e] hover:bg-[#085a5a] text-white px-5 py-2 rounded-[10px]">
+                Search
+            </button>
 
-    <!-- Table -->
-    <div class="card">
-        <table>
-            <thead>
+            <a th:href="@{/medications}"
+               class="px-4 py-2 border-2 border-[#e2e8f0] rounded-[10px] text-[#718096] hover:text-[#0a6e6e] hover:border-[#0a6e6e]">
+                ✕
+            </a>
+        </form>
+
+        <!-- Add Button -->
+        <a href="/medications/add"
+           class="bg-[#0a6e6e] hover:bg-[#085a5a] text-white px-6 py-2 rounded-[10px] shadow">
+            + Add Medication
+        </a>
+    </div>
+
+    <!-- 🔷 Result Count -->
+    <div class="w-full max-w-[960px] text-[#718096] text-[0.88rem] mb-3 pl-1">
+        Showing 
+        <span class="text-[#0a6e6e] font-semibold"
+              th:text="${totalElements}">0</span>
+        result(s)
+    </div>
+
+    <!-- 🔷 Table Card -->
+    <div class="w-full max-w-[960px] bg-white rounded-2xl shadow overflow-hidden">
+
+        <!-- Empty -->
+        <div th:if="${#lists.isEmpty(medications)}"
+             class="text-center py-10 text-[#718096]">
+            No medications found.
+        </div>
+
+        <!-- Table -->
+        <table th:unless="${#lists.isEmpty(medications)}"
+               class="w-full text-left">
+
+            <thead class="bg-[#0a6e6e] text-white">
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Brand</th>
-                    <th>Description</th>
-                    <th>Action</th>
+                    <th class="py-4 px-6 text-center">#</th>
+                    <th class="py-4 px-6 text-center">Name</th>
+                    <th class="py-4 px-6 text-center">Brand</th>
+                    <th class="py-4 px-6 text-center">Description</th>
+                    <th class="py-4 px-6 text-center">Actions</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr th:each="m, iterStat : ${medications}">
-                    <td th:text="${currentPage * size + iterStat.index + 1}"></td>
-                    <td th:text="${m.name}"></td>
-                    <td th:text="${m.brand}"></td>
-                    <td th:text="${m.description}"></td>
+                <tr th:each="m, iterStat : ${medications}"
+                    class="border-b hover:bg-[#f7fffe]">
 
-                    <td>
-                        <a th:href="@{'/medications/edit/' + ${m.code}}">
-                            <button class="btn-edit">Edit</button>
-                        </a>
+                    <!-- Serial -->
+                    <td class="py-3 px-6 text-center"
+                        th:text="${(currentPage * size) + iterStat.index + 1}"></td>
 
-                        <a th:href="@{/prescriptions(medicationId=${m.code})}"class="btn btn-view">
-                           View
-                        </a>
+                    <td class="py-3 px-6 text-center" th:text="${m.name}"></td>
+                    <td class="py-3 px-6 text-center" th:text="${m.brand}"></td>
+                    <td class="py-3 px-6 text-center" th:text="${m.description}"></td>
+
+                    <td class="py-3 px-6 text-center">
+                        <div class="flex justify-center gap-2">
+
+                            <!-- Edit -->
+                            <a th:href="@{'/medications/edit/' + ${m.code}}"
+                               class="px-3 py-1 bg-[#0a6e6e] text-white rounded-[7px] text-[0.85rem] hover:bg-[#085a5a]">
+                                Edit
+                            </a>
+
+                            <!-- View -->
+                            <a th:href="@{/prescriptions(medicationId=${m.code})}"
+                               class="px-3 py-1 bg-[#12b886] text-white rounded-[7px] text-[0.85rem] hover:bg-[#0f9f6e]">
+                                View
+                            </a>
+
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-        <!-- Pagination -->
-        <div class="pagination">
-
-            <span>
-                Page <b th:text="${currentPage + 1}"></b> of 
-                <b th:text="${totalPages}"></b>
-            </span>
-
-            <div class="page-buttons">
-
-                <!-- Previous -->
-                <a th:if="${currentPage > 0}"
-                   th:href="@{/medications(page=${currentPage - 1}, keyword=${keyword})}">
-                   Previous
-                </a>
-
-                <!-- Pages -->
-                <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                    <a th:href="@{/medications(page=${i}, keyword=${keyword})}"
-                       th:text="${i + 1}"
-                       th:classappend="${i == currentPage} ? 'active' : ''">
-                    </a>
-                </span>
-
-                <!-- Next -->
-                <a th:if="${currentPage < totalPages - 1}"
-                   th:href="@{/medications(page=${currentPage + 1}, keyword=${keyword})}">
-                   Next
-                </a>
-
-            </div>
-        </div>
-
     </div>
 
-</div>
+    <!-- 🔷 Pagination -->
+    <div class="mt-8 flex justify-center items-center gap-4"
+         th:if="${totalPages > 0}">
+
+        <div class="text-[#718096] text-[0.9rem]">
+            Page <span class="text-[#0a6e6e] font-semibold"
+                        th:text="${currentPage + 1}"></span>
+            of
+            <span class="text-[#0a6e6e] font-semibold"
+                        th:text="${totalPages}"></span>
+        </div>
+
+        <div class="flex gap-2">
+
+            <!-- Prev -->
+            <a th:if="${currentPage > 0}"
+               th:href="@{/medications(page=${currentPage - 1}, keyword=${keyword})}"
+               class="px-4 py-2 bg-white border rounded-[10px] hover:border-[#0a6e6e]">
+                ← Prev
+            </a>
+
+            <!-- Next -->
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/medications(page=${currentPage + 1}, keyword=${keyword})}"
+               class="px-4 py-2 bg-white border rounded-[10px] hover:border-[#0a6e6e]">
+                Next →
+            </a>
+
+        </div>
+    </div>
 
 </body>
 </html>
