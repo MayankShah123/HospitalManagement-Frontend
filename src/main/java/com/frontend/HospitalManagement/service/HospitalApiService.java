@@ -14,7 +14,7 @@ import java.util.*;
 @Service
 public class HospitalApiService {
 
-    @Value("${spring.backend.url}")
+    @Value("${spring.base}")
     private String backendUrl;
 
     private final RestTemplate restTemplate;

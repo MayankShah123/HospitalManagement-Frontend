@@ -23,6 +23,23 @@
                 </div>
             </div>
 
+            <!-- Breadcrumbs -->
+            <nav class="flex mb-6 text-sm font-medium text-slate-500" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-2">
+                    <li class="inline-flex items-center border border-slate-200 bg-white px-3 py-1.5 rounded-md shadow-sm hover:bg-slate-50 transition-colors">
+                        <a th:href="@{/}" class="inline-flex items-center text-slate-500 hover:text-teal-700">
+                            <i class="fa-solid fa-house mr-2"></i> Home
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-xs mx-2 text-slate-400"></i>
+                            <span class="text-teal-700 bg-teal-50 px-3 py-1.5 rounded-md border border-teal-100 shadow-sm">Physicians</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
                 <div>
@@ -138,7 +155,7 @@
                         
                         <td class="px-6 py-4 flex items-center justify-end gap-2">
                             <a th:href="@{/physicians/{id}/edit(id=${p.employeeId})}"
-                               class="icon-btn bg-white !text-teal-700 hover:!bg-teal-50 border border-teal-200 gap-1.5 px-3 py-1.5">
+                               class="inline-flex items-center justify-center px-3 py-1.5 rounded-md bg-white hover:bg-teal-50 text-teal-700 border border-teal-200 text-xs font-medium transition-colors active:scale-95 shadow-sm gap-1.5">
                                 <i class="fa-solid fa-pen fa-sm"></i> Edit
                             </a>
                         </td>
