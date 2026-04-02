@@ -66,7 +66,6 @@ public String getProcedures(
 }
 @PostMapping("/procedures/add")
 public String addProcedure(@ModelAttribute ProcedureDto procedure) {
-    // Trim and validate name before sending to backend
     if (procedure.getName() == null || procedure.getName().trim().isBlank()) {
         return "redirect:/procedures?message=Procedure+name+cannot+be+blank";
     }
